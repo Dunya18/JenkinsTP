@@ -2,14 +2,16 @@ pipeline {
   agent any
   stages {
     stage('Build') {
-    post {
-    failure{
-     mail(subject: 'Build state', body: 'Build failed', to: 'id_bouloudene@esi.dz')
-    }
-    success{
-         mail(subject: 'Build state', body: 'Build succeeded', to: 'id_bouloudene@esi.dz')
-    }
-    }
+      post {
+        failure {
+          mail(subject: 'Build state', body: 'Build failed', to: 'id_bouloudene@esi.dz')
+        }
+
+        success {
+          mail(subject: 'Build state', body: 'Build succeeded', to: 'id_bouloudene@esi.dz')
+        }
+
+      }
       steps {
         bat 'gradle build'
         bat 'gradle javadoc'
@@ -24,9 +26,24 @@ pipeline {
       }
     }
 
-    stage('Test Reporting') {
-      steps {
-        cucumber 'reports/*.json'
+    stage('Code Analysis') {
+      parallel {
+        stage('Code Analysis') {
+          steps {
+            withSonarQubeEnv('sonar') {
+              bat 'gradle sonarqube'
+            }
+
+            waitForQualityGate true
+          }
+        }
+
+        stage('Test Reporting') {
+          steps {
+            cucumber 'reports/*.json'
+          }
+        }
+
       }
     }
 
