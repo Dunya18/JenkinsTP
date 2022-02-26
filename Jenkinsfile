@@ -2,6 +2,14 @@ pipeline {
   agent any
   stages {
     stage('Build') {
+    post {
+    failure{
+     mail(subject: 'Build state', body: 'Build failed', to: 'id_bouloudene@esi.dz')
+    }
+    success{
+         mail(subject: 'Build state', body: 'Build succeeded', to: 'id_bouloudene@esi.dz')
+    }
+    }
       steps {
         bat 'gradle build'
         bat 'gradle javadoc'
