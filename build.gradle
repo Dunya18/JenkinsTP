@@ -51,7 +51,7 @@ publishing {
             url = "https://mymavenrepo.com/repo/KNi2xGmpxhyvvugarlJi/"
             credentials {
                 username 'myMavenRepo'
-                password 'dounia'
+                password 'dounia2018bld'
             }
         }
     }
