@@ -72,4 +72,3 @@ slack {
         channel = '#construction-dune-api-java-avec-gradle'
     }
 }
-publish.finalizedBy("publishToSlack")
