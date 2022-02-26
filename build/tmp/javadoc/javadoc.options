@@ -1,0 +1,9 @@
+-classpath 'C:\\Users\\ASUS PRO\\Downloads\\untitled1\\build\\classes\\java\\main;C:\\Users\\ASUS PRO\\Downloads\\untitled1\\build\\resources\\main'
+-d 'C:\\Users\\ASUS PRO\\Downloads\\untitled1\\build\\docs\\javadoc'
+-doctitle 'untitled1 1.0-SNAPSHOT API'
+-notimestamp 
+-quiet 
+-windowtitle 'untitled1 1.0-SNAPSHOT API'
+'C:\\Users\\ASUS PRO\\Downloads\\untitled1\\src\\main\\java\\com\\example\\exception\\NoSquareException.java'
+'C:\\Users\\ASUS PRO\\Downloads\\untitled1\\src\\main\\java\\com\\example\\model\\Matrix.java'
+'C:\\Users\\ASUS PRO\\Downloads\\untitled1\\src\\main\\java\\com\\example\\service\\MatrixMathematics.java'

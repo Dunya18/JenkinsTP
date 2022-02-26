@@ -1,0 +1,75 @@
+plugins {
+    id 'java'
+    id "com.github.spacialcircumstances.gradle-cucumber-reporting" version "0.1.24"
+    id 'jacoco'
+    id "org.sonarqube" version "2.8"
+    id "maven-publish"
+    id "net.madeng.slack" version "0.0.20"
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'io.cucumber:cucumber-java:6.0.0'
+    testImplementation 'io.cucumber:cucumber-junit:6.0.0'
+    testImplementation'junit:junit:4.12'
+}
+cucumberReports {
+    outputDir = file('build/reports/cucumber')
+    buildId = '0'
+    reports = files('reports/example-report.json')
+}
+test.finalizedBy("sonarqube")
+
+task generateMatrixAPIReports(type:Copy){
+    from('build/reports')
+    into'MatrixRelease/Matrix_v_1.0/reports'
+}
+task generateMatrixAPILibs(type:Copy){
+    from('build/libs')
+    into'MatrixRelease/Matrix_v_1.0/libs'
+}
+task generateMatrixAPIDocs(type:Copy){
+    from('build/docs')
+    into'MatrixRelease/Matrix_v_1.0/docs'
+}
+task generateMatrixAPI(){
+
+}
+generateMatrixAPI.dependsOn("generateMatrixAPIDocs","generateMatrixAPILibs","generateMatrixAPIReports")
+generateMatrixAPI.dependsOn("build")
+generateMatrixAPI.dependsOn("javadoc")
+
+publishing {
+    repositories {
+        maven {
+            url = ""
+            credentials {
+                username ''
+                password ''
+            }
+        }
+    }
+
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
+}
+
+generateMatrixAPI.finalizedBy("publish")
+
+slack {
+    webhookUrl ''
+    message {
+        text = "Project is built newly and deployed"
+        channel = '#construction-dune-api-java-avec-gradle'
+    }
+}
+publish.finalizedBy("publishToSlack")
