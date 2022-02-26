@@ -48,10 +48,10 @@ generateMatrixAPI.dependsOn("javadoc")
 publishing {
     repositories {
         maven {
-            url = ""
+            url = "https://mymavenrepo.com/repo/KNi2xGmpxhyvvugarlJi/"
             credentials {
-                username ''
-                password ''
+                username 'myMavenRepo'
+                password 'dounia'
             }
         }
     }
