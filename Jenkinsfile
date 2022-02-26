@@ -16,30 +16,21 @@ pipeline {
       }
     }
 
-    stage('Code Analysis') {
-      parallel {
-        stage('Code Analysis') {
-          steps {
-            withSonarQubeEnv('sonar') {
-              bat 'gradle sonarqube'
-            }
-
-            waitForQualityGate true
-          }
-        }
-
-        stage('Test Reporting') {
-          steps {
-            cucumber 'reports/*.json'
-          }
-        }
-
+    stage('Test Reporting') {
+      steps {
+        cucumber 'reports/*.json'
       }
     }
 
     stage('Deployment') {
       steps {
         bat 'gradle publish'
+      }
+    }
+
+    stage('Slack Notification') {
+      steps {
+        slackSend(channel: '#jenkins_tp', message: 'Project is built newly and deployed', token: 'T02SMHWTMPT/B034Q8F677F/zdVSeg4njKh8TOpl3sE1TI32', baseUrl: 'https://hooks.slack.com/services/')
       }
     }
 
