@@ -43,5 +43,11 @@ pipeline {
       }
     }
 
+    stage('Slack Notification') {
+      steps {
+        slackSend(channel: '#jenkins_tp', message: 'Project is built newly and deployed', token: 'T02SMHWTMPT/B034Q8F677F/zdVSeg4njKh8TOpl3sE1TI32', baseUrl: 'https://hooks.slack.com/services/')
+      }
+    }
+
   }
 }
