@@ -1,5 +1,4 @@
-# TP6_OGL_GRADLE
-Construction d'une API de calcul matriciel avec Gradle et son déploiement 
+# TP8_OGL_JENKINS
 
-Add to the file build.gradle url and credentials of your maven repository, and your slack webhook Url
-Open terminal and type : gradle generateMatrixAPI
+développement de processus d’intégration continue de deux versions d’une
+API de calcul matriciel. Le pipeline est représenté dans la figure ci-dessous.
